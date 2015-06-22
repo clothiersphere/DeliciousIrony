@@ -24,11 +24,11 @@
 
 ## Requirements
 
-- Node 1.4.1
+- Node 0.12.4
 - MongoDB 
 - Mongoose 4.0.6
 - Express 4.13.0
-- Angular
+- Angular 1.4.1
 - Ionic
 
 ## Development
