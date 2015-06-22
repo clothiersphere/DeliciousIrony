@@ -24,10 +24,10 @@
 
 ## Requirements
 
-- Node 0.10.x
-- MongoDB
-- Mongoose
-- Express
+- Node 1.4.1
+- MongoDB 
+- Mongoose 4.0.6
+- Express 4.13.0
 - Angular
 - Ionic
 
