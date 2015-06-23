@@ -1,7 +1,17 @@
 var Event = require('./eventModel');
 
-Event.create({ description: "the fellas", userId: 123}, function(err, events) {
-  console.log("the event was successfully created");
+Event.create({ 
+    description: "Ashwin's party", 
+    loc: { 
+            type: 'Point', 
+            coordinates: [ -122.49, 37.9 ]
+          }, 
+    userId: 123 
+  }, function(err) {
+    if(err) {
+      console.log("error on event creation", err);
+      return;
+    }  
 });
 
 module.exports = {
@@ -9,6 +19,6 @@ module.exports = {
     
   }, 
   add: function(req, res, next) {
-
+    
   }
 };
