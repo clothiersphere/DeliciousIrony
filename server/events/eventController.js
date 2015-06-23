@@ -1,10 +1,14 @@
-var Event = require('./event/eventModel');
+var Event = require('./eventModel');
+
+Event.create({ description: "the fellas", userId: 123}, function(err, events) {
+  console.log("the event was successfully created");
+});
 
 module.exports = {
-/*  somemethod: function(req, res, next){
-    var newEvent = new Event({
+  extract: function(req, res, next) {
+    
+  }, 
+  add: function(req, res, next) {
 
-    })
-    res.json('hello world');
-  }*/
+  }
 };
