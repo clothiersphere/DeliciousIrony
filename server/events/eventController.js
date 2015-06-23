@@ -18,8 +18,21 @@ Event.create({
 
 module.exports = {
   extract: function(req, res, next) {
-
+    var lastTime = new Date();
+    lastTime.setHours(lastTime.getHours() - 12);
+    
+    var findEvents = Q.nbind(Event.find, Event);
+    findEvents({ "created_at": { $gt : lastTime}})
+    .then(function(events) {
+      console.log('Events Successfully Extracted');
+      res.json({ events: events});
+    })
+    .fail(function(error) {
+      console.log("Event Extraction failed");
+      next(error);
+    })
   }, 
+
   add: function(req, res, next) {
 
     var description = req.body.description,
