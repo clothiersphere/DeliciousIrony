@@ -19,6 +19,7 @@ module.exports = {
           User.create(dummy, function(err, user){
             console.log(dummy.fb_id, 'successfully created');
           });
+          res.send(201);
         }
       });
 
@@ -43,6 +44,7 @@ module.exports = {
           User.create(dummy, function(err, user){
             console.log(dummy.fb_id, 'successfully created');
           });
+          res.send(201);
         }
       });
 
