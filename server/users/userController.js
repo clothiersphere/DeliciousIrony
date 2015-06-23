@@ -4,7 +4,6 @@ module.exports = {
   signup: function(req, res, next){
     var dummy = User({ // dummy user
       fb_id: 'fb_id',
-      username: 'username',
       first_name: 'first',
       last_name: 'last',
       email: 'abc@abc'
@@ -22,14 +21,11 @@ module.exports = {
           res.send(201);
         }
       });
-
-    res.json('hello world');
   },
 
   login: function(req, res, next){
     var dummy = User({ // dummy user
       fb_id: 'fb_id',
-      username: 'username',
       first_name: 'first',
       last_name: 'last',
       email: 'abc@abc'
@@ -47,7 +43,5 @@ module.exports = {
           res.send(201);
         }
       });
-
-    res.json('hello world');
   }
 };
