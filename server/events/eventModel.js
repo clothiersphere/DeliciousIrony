@@ -1,10 +1,9 @@
 var mongoose = require('mongoose');
 
 var EventSchema = new mongoose.Schema({
- description: { type: String, required: true },
- created_at: { type: Date },
- userId: { type: Number, required: true },
- location: { type: "Point", required: true }
+  description: { type: String, required: true },
+  created_at: { type: Date },
+  userId: { type: Number, required: true }
 });
 
 EventSchema.pre('save', function(next) {
@@ -15,4 +14,4 @@ EventSchema.pre('save', function(next) {
   next();
 });
 
-module.exports = mongoose.model('Event', EventSchema);
+module.exports = mongoose.model('events', EventSchema);
