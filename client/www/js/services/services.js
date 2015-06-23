@@ -11,7 +11,7 @@ angular.module('starter.services', [])
   var signin = function (user) {
     return $http({
       method: 'POST',
-      url: '/api/users',
+      url: '/api/user',
       data: user
     })
     .then(function (resp) {
