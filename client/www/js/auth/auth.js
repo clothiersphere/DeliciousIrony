@@ -37,8 +37,6 @@ angular.module('starter.auth', ['ngOpenFB'])
                   function (error) {
                     alert('Facebook error: ' + error.error_description);
                   });
-                
-                $scope.closeLogin();
             } else {
                 alert('Facebook login failed');
             }
