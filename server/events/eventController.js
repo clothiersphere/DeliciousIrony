@@ -1,6 +1,7 @@
 var Event = require('./eventModel');
+var Q = require('q');
 
-Event.create({ 
+Event.create({
     description: "Ashwin's party", 
     loc: { 
             type: 'Point', 
@@ -14,11 +15,35 @@ Event.create({
     }  
 });
 
+
 module.exports = {
   extract: function(req, res, next) {
-    
+
   }, 
   add: function(req, res, next) {
-    
+
+    var description = req.body.description,
+        coordinates = req.body.coordinates,
+        userId = req.body.userId;
+   
+    var createEvent = Q.nbind(Event.create, Event);
+    var newEvent = {
+          description: description, 
+          loc: { 
+            type: 'Point', 
+            coordinates: coordinates
+          }, 
+        userId: userId 
+    };
+
+    createEvent(newEvent).then(function(event){
+      console.log("event successfully created");
+      console.log(event);
+      res.sendStatus(201);
+    })
+    .fail(function(err) {
+      console.log(err);
+      next(err);
+    });
   }
 };
