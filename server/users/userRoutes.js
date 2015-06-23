@@ -4,5 +4,4 @@ module.exports = function(app){
   app.route('/')
     .get(userCtrl.login)
     .post(userCtrl.signup);
-
 };
