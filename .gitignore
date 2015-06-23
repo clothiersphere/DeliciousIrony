@@ -13,3 +13,5 @@ client/platforms/
 client/plugins/
 client/www/lib/
 client/resources/
+
+config.env.js
