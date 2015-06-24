@@ -1,29 +1,19 @@
 var Vote = require('./voteModel');
+var Event = require('./../events/eventModel');
 var mongoose = require('mongoose');
-var Event = require('./../events/eventModel')
 var Q = require('q');
-
-
-/*
-Vote.create({
-    eventId: mongoose.Types.ObjectId("558a2fad6d52c2d866a07470"), 
-    userId: 123, 
-    type: 1 
-  }, function(err) {
-    if(err) {
-      console.log("error on vote creation", err);
-      return;
-    }  
-});
-
-*/
 
 module.exports = {
   extract: function(req, res, next) {
+    /*
+      extract() is used when the Server receives a GET request at /api/votes
+      Finding all Vote Documents that have a 'event_created_at' value
+      greater than 12 hours ago from the current time.
+    */
 
     var lastTime = new Date();
     lastTime.setHours(lastTime.getHours() - 12);
-    
+
     var findVotes = Q.nbind(Vote.find, Vote);
     findVotes({ "event_created_at": { $gt : lastTime }})
     .then(function(votes) {
@@ -38,10 +28,18 @@ module.exports = {
   }, 
 
   add: function(req, res, next) {
-    console.log("Request body: " + req.body);
+    /*
+      add() is used when the Server receives a POST request at /api/votes
+
+      This will add a new Vote Document to the 'votes' Collection.
+      The _id of the new Vote Document is pushed into the corresponding Event Document's 
+      'votes'
+    */
+
     var eventId = mongoose.Types.ObjectId(req.body.eventId),
         userId = req.body.userId,
         type = req.body.type;
+
     var createVote = Q.nbind(Vote.create, Vote); 
     createVote({
         eventId: eventId,
@@ -61,7 +59,6 @@ module.exports = {
           event.votes.push(voteSaved._id);
           event.save(function(err, eventSaved) {
             console.log("Push VoteID into the event");
-            console.log(eventSaved);
             res.sendStatus(201);
           })
         });
