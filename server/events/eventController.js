@@ -1,55 +1,43 @@
 var Event = require('./eventModel');
 var Q = require('q');
-/*
-Event.create({
-    description: "Ashwin's party", 
-    loc: { 
-            type: 'Point', 
-            coordinates: [ -122.49, 37.9 ]
-          }, 
-    userId: "555" 
-  }, function(err) {
-    if(err) {
-      console.log("error on event creation", err);
-      return;
-    }  
-});
-*/
-
 
 module.exports = {
   extract: function(req, res, next) {
-    var lastTime = new Date();
-    lastTime.setHours(lastTime.getHours() - 12);
-    
     /*
-    Searching for all Events that have a 'created_at' value
+    extract() is used when the Server receives a GET request at /api/events
+    Finding all Event Documents that have a 'created_at' value
     greater than 12 hours ago from the current time.
     
     .populate() does the following:
       1. The 'user' field of each returned Event Document will be populated by the
-        corresponding User document, which represent the User who created the Event 
+        corresponding User document, which represents the User who created the Event 
       2. The 'votes' field of each returned Event Document will be populated by an 
-        array of all corresponding Votes that have been made regarding that Event
+        Array of all corresponding Votes that have been made regarding that Event
     */
+
+    var lastTime = new Date();
+    lastTime.setHours(lastTime.getHours() - 12);
     
     Event.find({ "created_at": { $gt : lastTime}})
     .populate('user votes')
     .exec(function (err, events) {
-    if (err) {
-      console.log("Error in Find Event");
-      console.log(err);
-      return;
-    }
-    console.log("printing out events");
-    console.log(events)
-    res.json({ events: events });
-
+      if (err) {
+        console.log("Error in Find Event");
+        console.log(err);
+        return;
+      }
+      console.log("printing out events");
+      console.log(events)
+      res.json({ events: events });
     });
   }, 
 
   add: function(req, res, next) {
+    /*
+      add() is used when the Server receives a POST request at /api/events
 
+      This will add a new Event Document to the 'events' Collection.
+    */
     var description = req.body.description,
         coordinates = req.body.coordinates,
         userId = req.body.userId;
