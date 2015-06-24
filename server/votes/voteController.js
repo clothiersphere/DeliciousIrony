@@ -1,5 +1,6 @@
 var Vote = require('./voteModel');
 var mongoose = require('mongoose');
+var Event = require('./../events/eventModel')
 var Q = require('q');
 
 
@@ -47,8 +48,23 @@ module.exports = {
         type: type
     })
     .then(function(vote) {
-      console.log("Created Vote");
-      res.sendStatus(201);
+      Event.findOne({ "_id" : vote.eventId })
+      .exec(function(err,event) {
+        var now = new Date();
+        if ( !vote.created_at ) {
+          vote.created_at = now;
+        }
+        vote.event_created_at = event.created_at;
+        vote.save(function(err, voteSaved) {
+          console.log("Created Vote");
+          event.votes.push(voteSaved._id);
+          event.save(function(err, eventSaved) {
+            console.log("Push VoteID into the event");
+            console.log(eventSaved);
+            res.sendStatus(201);
+          })
+        });
+      });
     })
     .fail(function(err) {
       console.log("error on vote creation", err);
