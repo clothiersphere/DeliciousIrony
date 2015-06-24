@@ -20,18 +20,68 @@ angular.module('starter.services', [])
   };
 
   var isAuth = function () {
-    return !!$window.localStorage.getItem('com.shortly');
+    return !!$window.localStorage.getItem( 'com.shortly' );
   };
 
   var signout = function () {
-    $window.localStorage.removeItem('com.shortly');
+    $window.localStorage.removeItem( 'com.shortly' );
     $location.path('/signin');
   };
-
-
   return {
     signin: signin,
     isAuth: isAuth,
     signout: signout
   };
+})
+
+.factory('Events', function ( $http, $location, $window ) {
+ 
+  var newEvent = function ( eventData ){
+    return $http({
+      method: 'POST',
+      url: '/api/events',
+      data: eventData.text,
+      coordinates: eventData.coordinates
+      // ,userId: ,
+    })
+    .then(function (resp) {
+      return resp.data.token;
+    });
+  }
+  return {
+    newEvent: newEvent
+  };
+})
+
+.factory('LocationService', function($q) {
+    
+    var longLat = null;
+    
+    var getlongLat = function(refresh) {
+        
+        var deferred = $q.defer();
+        
+        if( longLat === null || refresh ) {
+            navigator.geolocation.getCurrentPosition(function(pos) {
+                // longLat =  { 'lat' : pos.coords.latitude, 'long' : pos.coords.longitude } 
+                longLat =  [pos.coords.longitude,pos.coords.latitude ]
+                deferred.resolve(longLat);
+
+            }, function(error) {
+                console.log('Got error!');
+                console.log(error);
+                longLat = null
+                
+                deferred.reject('Failed to Get Lat Long')
+            });  
+        }  else {
+            deferred.resolve(longLat);
+        }
+        return deferred.promise;  
+    };      
+    return {  
+        getlongLat : getlongLat
+    };
 });
+
+
