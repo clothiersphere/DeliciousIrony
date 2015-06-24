@@ -25,9 +25,10 @@ angular.module('starter.auth', ['ngOpenFB'])
                 }).then(
                   function (user) {
                     $scope.user = user;
+                    $scope.user._id = user.id;
                     Auth.signin($scope.user)
                       .then(function() {
-                        Config.userId = $scope.user.id;
+                        Config.userId = $scope.user._id;
                         $location.path('/createevent');
                       })
                       .catch(function(error) {
