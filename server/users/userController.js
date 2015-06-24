@@ -6,7 +6,7 @@ module.exports = {
 
     var findOne = Q.nbind(User.findOne, User);
 
-    findOne({id: req.body.id})
+    findOne({_id: req.body._id})
       .then(function (user) {
         if (user) {
           res.sendStatus(200);
