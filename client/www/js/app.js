@@ -8,6 +8,7 @@ angular.module('starter', [
   'starter.auth', 
   'starter.services', 
   'starter.eventscreation', 
+  'starter.eventlist',
   'ngOpenFB'
 ])
 
@@ -38,6 +39,12 @@ angular.module('starter', [
     url: "/createevent",
     templateUrl: "js/events/createevent.html",
     controller: "EventsController"
+  })
+
+  .state('#/eventlist', {
+    url: "/eventlist",
+    templateUrl: "js/eventlist/eventlist.html",
+    controller: "EventListController"
   })
 
   // if none of the above states are matched, use this as the fallback

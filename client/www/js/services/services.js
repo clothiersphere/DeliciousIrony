@@ -40,15 +40,27 @@ angular.module('starter.services', [])
     console.log(eventData);
     return $http({
       method: 'POST',
-      url: '/api/createevent',
+      url: '/api/events',
       data: eventData
     })
     .then(function (resp) {
       return resp.data.token;
     });
   }
+
+  var getEvents = function () {
+    return $http({
+      method: 'GET',
+      url: '/api/events'
+    })
+    .then(function(resp) {
+      return resp.data;
+    });
+  }
+
   return {
-    newEvent: newEvent
+    newEvent: newEvent,
+    getEvents: getEvents
   };
 })
 

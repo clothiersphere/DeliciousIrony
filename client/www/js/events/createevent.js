@@ -10,7 +10,7 @@ angular.module( 'starter.eventscreation', ['starter.services'] )
 			$scope.eventData.userId = Config.userId;
 			Events.newEvent( $scope.eventData )
 			.then( function ( text ) {
-				$location.path('/createevent');
+				$location.path('/eventlist');
 			})
 			.catch( function ( error ) {
 				console.log( $scope.eventData )
