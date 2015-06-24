@@ -3,7 +3,10 @@
     <h1>Event List</h1>
     <ion-list>
       <ion-item ng-repeat="event in data.events">
-        {{event.description}}
+        <div class="username">{{event.user.first_name}} {{event.user.last_name[0]}}.</div>
+        <div class="description">{{event.description}}</div>
+        <button class="upvote" ng-click="upvote({{event}})">Upvote</button>
+        <button class="downvote" ng-click="downvote({{event}})">Downvote</button>
       </ion-item>
     </ion-list>
   </ion-content>

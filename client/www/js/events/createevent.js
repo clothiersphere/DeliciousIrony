@@ -7,7 +7,7 @@ angular.module( 'starter.eventscreation', ['starter.services'] )
 	$scope.newEvent = function() {
 		LocationService.getlongLat().then(function ( coordinates ){
 			$scope.eventData.coordinates = coordinates;
-			$scope.eventData.userId = Config.userId;
+			$scope.eventData.userId = Config.getUserId();
 			Events.newEvent( $scope.eventData )
 			.then( function ( text ) {
 				$location.path('/eventlist');

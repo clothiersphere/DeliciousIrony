@@ -37,7 +37,7 @@ angular.module('starter.services', [])
 .factory('Events', function ( $http, $location, $window ) {
  
   var newEvent = function ( eventData ){
-    console.log(eventData);
+    console.log("New event data: " + eventData);
     return $http({
       method: 'POST',
       url: '/api/events',
@@ -58,9 +58,33 @@ angular.module('starter.services', [])
     });
   }
 
+  var voteEvent = function(voteData) {
+    console.log("Vote Data: " + JSON.stringify(voteData));
+    return $http({
+      method: 'POST',
+      url: '/api/votes',
+      data: voteData
+    })
+    .then(function(resp) {
+      return resp.data.token;
+    });
+  }
+
+  // var downvoteEvent = function(voteData) {
+  //   return $http({
+  //     method: 'POST',
+  //     url: '/api/votes',
+  //     data: voteData
+  //   })
+  //   .then(function(resp) {
+  //     return resp.data.token;
+  //   });
+  // }
+
   return {
     newEvent: newEvent,
-    getEvents: getEvents
+    getEvents: getEvents,
+    voteEvent: voteEvent
   };
 })
 
@@ -96,8 +120,19 @@ angular.module('starter.services', [])
 })
 
 .factory('Config', function() {
+  var userId = null;
+
+  var getUserId = function() {
+    return userId;
+  }
+
+  var setUserId = function(str) {
+    userId = str;
+    return userId;
+  }
   return {
-    userId: null 
+    getUserId: getUserId,
+    setUserId: setUserId
   }
 });
 

@@ -28,7 +28,7 @@ angular.module('starter.auth', ['ngOpenFB'])
                     $scope.user._id = user.id;
                     Auth.signin($scope.user)
                       .then(function() {
-                        Config.userId = $scope.user._id;
+                        Config.setUserId($scope.user._id);
                         $location.path('/eventlist');
                       })
                       .catch(function(error) {
