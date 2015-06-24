@@ -5,6 +5,10 @@
 		{
 			"path": "/api/user",
 			"proxyUrl": "http://127.0.0.1:1337/api/user"
+		},
+		{
+			"path": "/api/createevent",
+			"proxyUrl": "http://127.0.0.1:1337/api/events"
 		}
 	]
 }

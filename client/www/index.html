@@ -17,44 +17,10 @@
     <!-- <script src="lib/ngCordova/dist/ng-cordova.js"></script> -->
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-    <script type="text/javascript" charset="utf-8">
-
-    // Wait for device API libraries to load
-    //
-    document.addEventListener("deviceready", onDeviceReady, false);
-
-    // device APIs are available
-    //
-    function onDeviceReady() {
-        navigator.geolocation.getCurrentPosition(onSuccess, onError);
-    }
-
-    // onSuccess Geolocation
-    //
-    function onSuccess(position) {
-        var element = document.getElementById('geolocation');
-        element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
-                            'Longitude: '          + position.coords.longitude             + '<br />' +
-                            'Altitude: '           + position.coords.altitude              + '<br />' +
-                            'Accuracy: '           + position.coords.accuracy              + '<br />' +
-                            'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
-                            'Heading: '            + position.coords.heading               + '<br />' +
-                            'Speed: '              + position.coords.speed                 + '<br />' +
-                            'Timestamp: '          + position.timestamp                    + '<br />';
-    }
-
-    // onError Callback receives a PositionError object
-    //
-    function onError(error) {
-        alert('code: '    + error.code    + '\n' +
-              'message: ' + error.message + '\n');
-    }
-
-    </script>
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
-    <script src="js/events/events.js"></script>
+    <script src="js/events/createevent.js"></script>
     <script src="js/openfb/ngopenfb.js"></script>
     <script src="js/openfb/openfb.js"></script>
     <script src="js/auth/auth.js"></script>
@@ -69,7 +35,6 @@
       </ion-content>
 
     </ion-pane> -->
-    <p id="geolocation">Finding geolocation...</p>
     
     <ion-nav-view></ion-nav-view>
 

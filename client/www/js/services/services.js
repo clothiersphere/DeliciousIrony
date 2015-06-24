@@ -37,12 +37,11 @@ angular.module('starter.services', [])
 .factory('Events', function ( $http, $location, $window ) {
  
   var newEvent = function ( eventData ){
+    console.log(eventData);
     return $http({
       method: 'POST',
-      url: '/api/events',
-      data: eventData.text,
-      coordinates: eventData.coordinates
-      // ,userId: ,
+      url: '/api/createevent',
+      data: eventData
     })
     .then(function (resp) {
       return resp.data.token;
@@ -82,6 +81,12 @@ angular.module('starter.services', [])
     return {  
         getlongLat : getlongLat
     };
+})
+
+.factory('Config', function() {
+  return {
+    userId: null 
+  }
 });
 
 
