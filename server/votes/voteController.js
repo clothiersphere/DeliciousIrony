@@ -38,6 +38,7 @@ module.exports = {
   }, 
 
   add: function(req, res, next) {
+    console.log("Request body: " + req.body);
     var eventId = mongoose.Types.ObjectId(req.body.eventId),
         userId = req.body.userId,
         type = req.body.type;
