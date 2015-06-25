@@ -78,7 +78,7 @@ angular.module('starter.eventlist', ['angularMoment'])
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
     var d = R * c * 0.000621371;
-    var miles = +d.toFixed(2);
+    var miles = +d.toFixed(1);
 
     return miles;
   };

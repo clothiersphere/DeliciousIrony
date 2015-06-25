@@ -11,7 +11,7 @@
         <ion-item ng-repeat="event in data.events | orderBy:['+distance', '-created_at']">
           <div class="username">{{event.user.first_name}} {{event.user.last_name[0]}}.</div>
           <div class="description">{{event.description}}</div>
-          <div class="distance">{{event.distance}} meters</div>
+          <div class="distance">{{event.distance}} miles</div>
           <div class="timeago"><span am-time-ago="event.created_at"></span></div>
           <div class="upvoteDiv">
             <span class="upvoteCount">{{event.upvoteCount}}</span>
