@@ -1,6 +1,6 @@
 var bodyParser = require('body-parser');
 
-module.exports = function(app, express){
+module.exports = function (app, express) {
 
   var userRouter = express.Router();
   var eventRouter = express.Router();

@@ -2,7 +2,12 @@ var User = require('./userModel');
 var Q = require('q');
 
 module.exports = {
-  login: function(req, res, next){
+  /*
+    login() is used when the Server receives a POST request at /api/user
+    After login via Facebook authentication,
+    create a new user entry
+  */
+  login: function (req, res, next) {
 
     var findOne = Q.nbind(User.findOne, User);
 
@@ -12,7 +17,7 @@ module.exports = {
           res.sendStatus(200);
         } else {
           var createUser = Q.nbind(User.create, User);
-          return createUser(req.body).then(function(user){
+          return createUser(req.body).then(function (user) {
             res.sendStatus(201);
           });
         }
