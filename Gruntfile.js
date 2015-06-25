@@ -54,6 +54,8 @@ module.exports = function (grunt) {
         jshintrc: '.jshintrc',
         ignores: [
           'client/www/lib/**/*.js',
+          'client/hooks/**/*.js',
+          'client/www/js/openfb/*.js'
         ]
       }
     },
