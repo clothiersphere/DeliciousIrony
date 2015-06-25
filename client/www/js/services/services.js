@@ -20,7 +20,7 @@ angular.module('starter.services', ['ngOpenFB'])
   };
 
   var signout = function () {
-    $window.localStorage.removeItem( 'com.shortly' );
+    $window.localStorage.removeItem('com.shortly');
     $location.path('/signin');
   };
   return {
@@ -29,9 +29,9 @@ angular.module('starter.services', ['ngOpenFB'])
   };
 })
 
-.factory('Events', function ( $http, $location, $window ) {
+.factory('Events', function ($http, $location, $window) {
  
-  var newEvent = function ( eventData ){
+  var newEvent = function (eventData) {
     return $http({
       method: 'POST',
       url: '/api/events',
@@ -40,29 +40,29 @@ angular.module('starter.services', ['ngOpenFB'])
     .then(function (resp) {
       return resp.data;
     });
-  }
+  };
 
   var getEvents = function () {
     return $http({
       method: 'GET',
       url: '/api/events'
     })
-    .then(function(resp) {
+    .then(function (resp) {
       return resp.data;
     });
-  }
+  };
 
-  var voteEvent = function(voteData) {
-    console.log("Vote Data: " + JSON.stringify(voteData));
+  var voteEvent = function (voteData) {
+    console.log('Vote Data: ' + JSON.stringify(voteData));
     return $http({
       method: 'POST',
       url: '/api/votes',
       data: voteData
     })
-    .then(function(resp) {
+    .then(function (resp) {
       return resp.data;
     });
-  }
+  };
 
   return {
     newEvent: newEvent,
@@ -71,51 +71,48 @@ angular.module('starter.services', ['ngOpenFB'])
   };
 })
 
-.factory('LocationService', function($q) {
+.factory('LocationService', function ($q) {
     
     var longLat = null;
     
-    var getlongLat = function(refresh) {
+    var getlongLat = function (refresh) {
         
         var deferred = $q.defer();
         
-        if( longLat === null || refresh ) {
-            navigator.geolocation.getCurrentPosition(function(pos) {
-                // longLat =  { 'lat' : pos.coords.latitude, 'long' : pos.coords.longitude } 
-                longLat =  [pos.coords.longitude,pos.coords.latitude ]
-                deferred.resolve(longLat);
-
-            }, function(error) {
-                console.log('Got error!');
-                console.log(error);
-                longLat = null
-                
-                deferred.reject('Failed to Get Lat Long')
-            });  
-        }  else {
+        if (longLat === null || refresh) {
+          navigator.geolocation.getCurrentPosition(function (pos) {
+            longLat =  [pos.coords.longitude, pos.coords.latitude ];
             deferred.resolve(longLat);
+          }, function (error) {
+            console.log('Got error!');
+            console.log(error);
+            longLat = null;
+              
+            deferred.reject('Failed to Get Lat Long');
+          });
+        }  else {
+          deferred.resolve(longLat);
         }
-        return deferred.promise;  
-    };      
-    return {  
+        return deferred.promise;
+      };
+    return {
         getlongLat : getlongLat
-    };
-})
-
-.factory('Token', function($window,$location, ngFB) {
+      };
+  })
+.factory('Token', function ($window, $location, ngFB) {
   return {
-    set: function(key, value) {
+    set: function (key, value) {
       $window.localStorage[key] = value;
     },
-    get: function(key, defaultValue) {
+    get: function (key, defaultValue) {
       return $window.localStorage[key] || defaultValue;
     },
-    signout: function() {
+    signout: function () {
       $window.localStorage.clear();
       $window.sessionStorage.clear();
       $location.path('/signin');
     }
-  }
+  };
 });
 
 
