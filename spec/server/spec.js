@@ -35,7 +35,7 @@ describe('/api/user', function () {
         'last_name': 'Fella',
         'email': 'wowza@415.com'
       })
-      .expect(2101)
+      .expect(201)
       .end(done);
   });
 });
