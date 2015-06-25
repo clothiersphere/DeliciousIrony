@@ -18,8 +18,8 @@ angular.module('starter.auth', ['ngOpenFB'])
     ngFB.login({scope: 'email,read_stream,publish_actions'}).then(
         function (response) {
             if (response.status === 'connected') {
-                console.log('Facebook login succeeded');
-                ngFB.api({
+              console.log('Facebook login succeeded');
+              ngFB.api({
                   path: '/me',
                   params: {fields: 'id,email,first_name,last_name'}
                 }).then(
@@ -27,20 +27,20 @@ angular.module('starter.auth', ['ngOpenFB'])
                     $scope.user = user;
                     $scope.user._id = user.id;
                     Auth.signin($scope.user)
-                      .then(function() {
+                      .then(function () {
                         Token.set('userId', user.id);
                         $location.path('/eventlist');
                       })
-                      .catch(function(error) {
-                        console.log("Error in calling Auth.signin: " + error);
+                      .catch(function (error) {
+                        console.log('Error in calling Auth.signin: ' + error);
                       });
                   },
                   function (error) {
                     alert('Facebook error: ' + error.error_description);
                   });
             } else {
-                alert('Facebook login failed');
+              alert('Facebook login failed');
             }
-        });
+          });
   };
 });
