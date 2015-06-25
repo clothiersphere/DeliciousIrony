@@ -9,27 +9,27 @@ angular.module('starter.eventlist', ['angularMoment'])
 
   $ionicModal.fromTemplateUrl('js/eventlist/createevent.html', {
     scope: $scope
-  }).then(function(modal) {
+  }).then(function (modal) {
     $scope.modal = modal;
   });
 
-  $scope.showCreateEvent = function() {
+  $scope.showCreateEvent = function () {
     $scope.modal.show();
   };
 
-  $scope.closeCreateEvent = function() {
+  $scope.closeCreateEvent = function () {
     $scope.modal.hide();
   };
 
-  $scope.getEvents = function(){
-    Events.getEvents().then(function(events){
+  $scope.getEvents = function () {
+    Events.getEvents().then(function (events) {
       $scope.data.events = events.events;
       var prom = [];
-      $scope.data.events.forEach(function(event) {
+      $scope.data.events.forEach(function (event) {
         event.upvoteCount = 0;
         event.downvoteCount = 0;
         event.alreadyVoted = false;
-        event.votes.forEach(function(vote) {
+        event.votes.forEach(function (vote) {
           if (vote.type === 1) {
             event.upvoteCount++;
           } else {
@@ -39,64 +39,64 @@ angular.module('starter.eventlist', ['angularMoment'])
             event.alreadyVoted = true;
           }
         });
-        prom.push(LocationService.getlongLat().then(function(coordinates) {
+        prom.push(LocationService.getlongLat().then(function (coordinates) {
           event.distance = $scope._calcDistance(coordinates[1], coordinates[0], event.loc.coordinates[1], event.loc.coordinates[0]);
         }));
       });
-      $q.all(prom).then(function() {
+      $q.all(prom).then(function () {
         $scope.ready = true;
       });
     });
   };
 
-  $scope.newEvent = function() {
-    LocationService.getlongLat().then(function (coordinates){
+  $scope.newEvent = function () {
+    LocationService.getlongLat().then(function (coordinates) {
       $scope.eventData.coordinates = coordinates;
       $scope.eventData.userId = Token.get('userId');
       Events.newEvent($scope.eventData)
-      .then( function (newEvent) {
+      .then(function (newEvent) {
         $scope.closeCreateEvent();
       })
-      .catch( function (error) {
-        console.log($scope.eventData)
-        console.log("Error adding new event data: " + error);
+      .catch(function (error) {
+        console.log($scope.eventData);
+        console.log('Error adding new event data: ' + error);
       });
     });
   };
 
-  $scope.upvote = function(event) {
-    console.log("Clicked event: " + JSON.stringify(event));
-    console.log("Config.userId " + Token.get('userId'));
+  $scope.upvote = function (event) {
+    console.log('Clicked event: ' + JSON.stringify(event));
+    console.log('Config.userId ' + Token.get('userId'));
     $scope.vote.userId = Token.get('userId');
     $scope.vote.eventId = event._id;
     $scope.vote.type = 1;
     Events.voteEvent($scope.vote)
-      .then(function() {
+      .then(function () {
         $scope.getEvents();
       })
-      .catch(function(error) {
-        console.log("Error in calling Events.voteEvent: " + error);
-      });      
+      .catch(function (error) {
+        console.log('Error in calling Events.voteEvent: ' + error);
+      });
   };
 
-  $scope.downvote = function(event) {
+  $scope.downvote = function (event) {
     $scope.vote.userId = Token.get('userId');
     $scope.vote.eventId = event._id;
     $scope.vote.type = -1;
     Events.voteEvent($scope.vote)
-      .then(function() {
+      .then(function () {
         $scope.getEvents();
       })
-      .catch(function(error) {
-        console.log("Error in calling Events.voteEvent: " + error);
-      });        
+      .catch(function (error) {
+        console.log('Error in calling Events.voteEvent: ' + error);
+      });
   };
 
-  $scope.signout = function() {
+  $scope.signout = function () {
     Token.signout();
   }
 
-  $scope._calcDistance = function(lat1, lon1, lat2, lon2) {
+  $scope._calcDistance = function (lat1, lon1, lat2, lon2) {
     var R = 6371000; // metres
     var φ1 = (lat1) * Math.PI / 180;
     var φ2 = (lat2) * Math.PI / 180;
@@ -114,7 +114,7 @@ angular.module('starter.eventlist', ['angularMoment'])
     return miles;
   };
 
-  $scope.init = function() {
+  $scope.init = function () {
     $scope.ready = false;
     $scope.getEvents();
   };
