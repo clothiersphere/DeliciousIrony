@@ -45,7 +45,7 @@ module.exports = function (grunt) {
       files: [
         'Gruntfile.js',
         'server/**/*.js',
-        'client/**/*.js',
+        'client/www/**/*.js',
         'spec/**/*.js',
         './*.js'
       ],
@@ -53,8 +53,7 @@ module.exports = function (grunt) {
         force: 'true',
         jshintrc: '.jshintrc',
         ignores: [
-          'public/lib/**/*.js',
-          'public/dist/**/*.js'
+          'client/www/lib/**/*.js',
         ]
       }
     },
