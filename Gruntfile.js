@@ -45,17 +45,15 @@ module.exports = function (grunt) {
       files: [
         'Gruntfile.js',
         'server/**/*.js',
-        'lib/**/*.js',
-        'public/**/*.js',
-        'test/**/*.js',
+        'client/www/**/*.js',
+        'spec/**/*.js',
         './*.js'
       ],
       options: {
         force: 'true',
         jshintrc: '.jshintrc',
         ignores: [
-          'public/lib/**/*.js',
-          'public/dist/**/*.js'
+          'client/www/lib/**/*.js',
         ]
       }
     },
