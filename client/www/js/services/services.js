@@ -1,4 +1,4 @@
-angular.module('starter.services', [])
+angular.module('starter.services', ['ngOpenFB'])
 
 .factory('Auth', function ($http, $location, $window) {
   // Don't touch this Auth service!!!
@@ -32,13 +32,13 @@ angular.module('starter.services', [])
 .factory('Events', function ( $http, $location, $window ) {
  
   var newEvent = function ( eventData ){
-    console.log("New event data: " + eventData);
     return $http({
       method: 'POST',
       url: '/api/events',
       data: eventData
     })
     .then(function (resp) {
+      console.log("Response for new event: " + JSON.stringify(resp));
       return resp.data;
     });
   }
@@ -103,13 +103,18 @@ angular.module('starter.services', [])
     };
 })
 
-.factory('Token', function($window) {
+.factory('Token', function($window,$location, ngFB) {
   return {
     set: function(key, value) {
       $window.localStorage[key] = value;
     },
     get: function(key, defaultValue) {
       return $window.localStorage[key] || defaultValue;
+    },
+    signout: function() {
+      $window.localStorage.clear();
+      $window.sessionStorage.clear();
+      $location.path('/signin');
     }
   }
 });

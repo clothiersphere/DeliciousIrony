@@ -1,14 +1,28 @@
 angular.module('starter.eventlist', ['angularMoment'])
 
-.controller('EventListController', function ($scope, $q, $location, Events, LocationService, Token) {
+.controller('EventListController', function ($scope, $q, $ionicModal, $location, Events, LocationService, Token) {
 
   $scope.data = {};
+  $scope.eventData = {};
   $scope.vote = {};
   $scope.ready = false;
 
+  $ionicModal.fromTemplateUrl('js/eventlist/createevent.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.showCreateEvent = function() {
+    $scope.modal.show();
+  };
+
+  $scope.closeCreateEvent = function() {
+    $scope.modal.hide();
+  };
+
   $scope.getEvents = function(){
     Events.getEvents().then(function(events){
-      console.log("Events in eventlist: " + JSON.stringify(events.events));
       $scope.data.events = events.events;
       var prom = [];
       $scope.data.events.forEach(function(event) {
@@ -26,13 +40,26 @@ angular.module('starter.eventlist', ['angularMoment'])
           }
         });
         prom.push(LocationService.getlongLat().then(function(coordinates) {
-          console.log("Current coordinates: " + coordinates);
-          console.log("Event coordinates: " + event.loc.coordinates);
           event.distance = $scope._calcDistance(coordinates[1], coordinates[0], event.loc.coordinates[1], event.loc.coordinates[0]);
         }));
       });
       $q.all(prom).then(function() {
         $scope.ready = true;
+      });
+    });
+  };
+
+  $scope.newEvent = function() {
+    LocationService.getlongLat().then(function (coordinates){
+      $scope.eventData.coordinates = coordinates;
+      $scope.eventData.userId = Token.get('userId');
+      Events.newEvent($scope.eventData)
+      .then( function (newEvent) {
+        $scope.closeCreateEvent();
+      })
+      .catch( function (error) {
+        console.log($scope.eventData)
+        console.log("Error adding new event data: " + error);
       });
     });
   };
@@ -65,6 +92,10 @@ angular.module('starter.eventlist', ['angularMoment'])
       });        
   };
 
+  $scope.signout = function() {
+    Token.signout();
+  }
+
   $scope._calcDistance = function(lat1, lon1, lat2, lon2) {
     var R = 6371000; // metres
     var φ1 = (lat1) * Math.PI / 180;
@@ -82,10 +113,6 @@ angular.module('starter.eventlist', ['angularMoment'])
 
     return miles;
   };
-
-  $scope.createEventModal = function() {
-    $location.path('/createevent');
-  }
 
   $scope.init = function() {
     $scope.ready = false;
