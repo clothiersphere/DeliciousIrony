@@ -38,7 +38,6 @@ angular.module('starter.services', ['ngOpenFB'])
       data: eventData
     })
     .then(function (resp) {
-      console.log("Response for new event: " + JSON.stringify(resp));
       return resp.data;
     });
   }

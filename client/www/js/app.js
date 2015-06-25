@@ -6,8 +6,7 @@
 angular.module('starter', [
   'ionic', 
   'starter.auth', 
-  'starter.services', 
-  'starter.eventscreation', 
+  'starter.services',
   'starter.eventlist',
   'ngOpenFB'
 ])
@@ -33,12 +32,6 @@ angular.module('starter', [
     url: "/signin",
     templateUrl: "js/auth/signin.html",
     controller: 'AuthController'
-  })
-
-  .state('#/createevent', {
-    url: "/createevent",
-    templateUrl: "js/events/createevent.html",
-    controller: "EventsController"
   })
 
   .state('#/eventlist', {
