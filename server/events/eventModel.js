@@ -24,7 +24,7 @@ var EventSchema = new mongoose.Schema({
     user is the '_id' of the User Model that created 
     this Event
   */
-  user: { type: String, ref: 'users' },
+  user: { type: String, ref: 'users', required: true },
   
   /*
     votes is an array of Vote Model '_id'
