@@ -1,4 +1,4 @@
-angular.module('starter.eventlist', [])
+angular.module('starter.eventlist', ['angularMoment'])
 
 .controller('EventListController', function ($scope, $q, $location, Events, LocationService, Token) {
 
