@@ -45,9 +45,8 @@ module.exports = function (grunt) {
       files: [
         'Gruntfile.js',
         'server/**/*.js',
-        'lib/**/*.js',
-        'public/**/*.js',
-        'test/**/*.js',
+        'client/**/*.js',
+        'spec/**/*.js',
         './*.js'
       ],
       options: {
