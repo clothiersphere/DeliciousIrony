@@ -2,12 +2,31 @@
   <ion-content>
     <h1>Event List</h1>
     <ion-list>
-      <ion-item ng-repeat="event in data.events">
-        <div class="username">{{event.user.first_name}} {{event.user.last_name[0]}}.</div>
-        <div class="description">{{event.description}}</div>
-        <button class="upvote" ng-click="upvote({{event}})">Upvote</button>
-        <button class="downvote" ng-click="downvote({{event}})">Downvote</button>
+      <ion-item>
+        <button class="button button-block button-positive" ng-click="createEventModal()">
+        Create New Event
+        </button>
       </ion-item>
+      <div ng-show="ready">
+        <ion-item ng-repeat="event in data.events | orderBy:['+distance', '-created_at']">
+          <div class="username">{{event.user.first_name}} {{event.user.last_name[0]}}.</div>
+          <div class="description">{{event.description}}</div>
+          <div class="distance">{{event.distance}} meters</div>
+          <div class="upvoteDiv">
+            <span class="upvoteCount">{{event.upvoteCount}}</span>
+            <button class="upvote" ng-click="upvote({{event}})" ng-disabled="{{event.alreadyVoted}}">Upvote</button>
+          </div>
+          <div class="downvoteDiv">
+            <span class="downvoteCount">{{event.downvoteCount}}</span>
+            <button class="downvote" ng-click="downvote({{event}})" ng-disabled="{{event.alreadyVoted}}">Downvote</button>
+          </div>
+        </ion-item>
+      </div>
+      <div ng-show="!ready">
+        <ion-item>
+          <img class='spinner' src='../../img/spiffygif_46x46.gif'>
+        </ion-item>
+      </div>
     </ion-list>
   </ion-content>
 </ion-view>

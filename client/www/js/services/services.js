@@ -15,12 +15,8 @@ angular.module('starter.services', [])
       data: user
     })
     .then(function (resp) {
-      return resp.data.token;
+      return resp.data;
     });
-  };
-
-  var isAuth = function () {
-    return !!$window.localStorage.getItem( 'com.shortly' );
   };
 
   var signout = function () {
@@ -29,7 +25,6 @@ angular.module('starter.services', [])
   };
   return {
     signin: signin,
-    isAuth: isAuth,
     signout: signout
   };
 })
@@ -44,7 +39,7 @@ angular.module('starter.services', [])
       data: eventData
     })
     .then(function (resp) {
-      return resp.data.token;
+      return resp.data;
     });
   }
 
@@ -66,20 +61,9 @@ angular.module('starter.services', [])
       data: voteData
     })
     .then(function(resp) {
-      return resp.data.token;
+      return resp.data;
     });
   }
-
-  // var downvoteEvent = function(voteData) {
-  //   return $http({
-  //     method: 'POST',
-  //     url: '/api/votes',
-  //     data: voteData
-  //   })
-  //   .then(function(resp) {
-  //     return resp.data.token;
-  //   });
-  // }
 
   return {
     newEvent: newEvent,
@@ -119,20 +103,14 @@ angular.module('starter.services', [])
     };
 })
 
-.factory('Config', function() {
-  var userId = null;
-
-  var getUserId = function() {
-    return userId;
-  }
-
-  var setUserId = function(str) {
-    userId = str;
-    return userId;
-  }
+.factory('Token', function($window) {
   return {
-    getUserId: getUserId,
-    setUserId: setUserId
+    set: function(key, value) {
+      $window.localStorage[key] = value;
+    },
+    get: function(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+    }
   }
 });
 

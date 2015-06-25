@@ -3,7 +3,7 @@
 // in our signup/signin forms using the injected Auth service
 angular.module('starter.auth', ['ngOpenFB'])
 
-.controller('AuthController', function ($scope, $location, ngFB, Auth, Config) {
+.controller('AuthController', function ($scope, $location, ngFB, Auth, Token) {
   
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -28,7 +28,7 @@ angular.module('starter.auth', ['ngOpenFB'])
                     $scope.user._id = user.id;
                     Auth.signin($scope.user)
                       .then(function() {
-                        Config.setUserId($scope.user._id);
+                        Token.set('userId', user.id);
                         $location.path('/eventlist');
                       })
                       .catch(function(error) {
