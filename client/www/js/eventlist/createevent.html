@@ -1,0 +1,22 @@
+<ion-modal-view view-title="Create Event">
+	<ion-header-bar>
+		<h1 class="title">Create Event</h1>
+		<div class="buttons">
+			<button class="button button-clear" ng-click="closeCreateEvent()">Close</button>
+		</div>
+	</ion-header-bar>
+	<ion-content>
+		<form ng-submit="newEvent()">
+			<div class="list">
+				<label class="item item-input">
+					<input type="text" name="eventtext" ng-model="eventData.description" placeholder="Describe your event here..."></input>
+				</label>
+				<label>
+					<button type="submit" class="button button-positive button-block">Publish Event</button>
+				</label>
+			</div>
+		</form>
+ 	</ion-content>
+</ion-modal-view>
+
+ 

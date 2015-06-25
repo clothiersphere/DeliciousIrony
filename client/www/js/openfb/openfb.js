@@ -30,7 +30,7 @@ var openFB = (function () {
         cordovaOAuthRedirectURL = "https://www.facebook.com/connect/login_success.html",
 
     // Default Logout redirect URL. Can be overriden in init()
-        logoutRedirectURL = baseURL + '/logoutcallback.html',
+        logoutRedirectURL = 'http://arcane-springs-4361.herokuapp.com/',
 
     // Because the OAuth login spans multiple processes, we need to keep the login callback function as a variable
     // inside the module instead of keeping it local within the login function.
