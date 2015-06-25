@@ -1,1 +1,74 @@
 /* Empty. Add your own CSS if you like */
+ion-content {
+	text-align: center;
+	background-color: #6699FF;
+	color: #FFFFFF;
+}
+
+.event {
+	text-align: left;
+}
+
+.createevent {
+	border-style: dashed;
+	border-width: 2px;
+	font-style: italic;
+}
+
+.eventlist .event:nth-child(odd) {
+	background-color: #b8d1f3;
+}
+
+.eventlist .event:nth-child(even) {
+	background-color: #dae5f4;
+}
+
+.signout {
+	display: inline;
+	float: right;
+}
+
+.signoutButton {
+	margin: auto 10px;
+}
+
+.timeago {
+	display: inline;
+	float: right;
+}
+
+.username {
+	font-weight: bold;
+}
+
+.description {
+	margin-left: 5%;
+}
+
+.votes {
+	float: right;
+	display: inline;
+	margin-top: 15px;
+}
+
+.thumbsup {
+	height: 12px;
+	width: 12px;
+}
+
+.thumbsdown {
+	height: 12px;
+	width: 12px;	
+}
+
+.upvoteDiv {
+	display: inline;
+}
+
+.downvoteDiv {
+	display: inline;
+}
+
+.distance {
+	margin-top: 15px;
+}

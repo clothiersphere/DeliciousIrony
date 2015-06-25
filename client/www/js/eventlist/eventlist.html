@@ -1,27 +1,31 @@
 <ion-view view-title="Event List">
   <ion-content>
-    <h1>Event List</h1>
-    <button class="signout" ng-click="signout()">Sign Out</button>
+    <h1 class="title">
+      <div class="signout">
+        <button class="signoutButton" ng-click="signout()">Sign Out</button>
+      </div>
+      Event List
+    </h1>
     <ion-list>
-      <ion-item>
-        <button class="button button-block button-positive" ng-click="showCreateEvent()">
+      <ion-item class="createevent" ng-click="showCreateEvent()">
         Create New Event
-        </button>
       </ion-item>
-      <div ng-show="ready">
-        <ion-item ng-repeat="event in data.events | orderBy:['+distance', '-created_at']">
-          <div class="username">{{event.user.first_name}} {{event.user.last_name[0]}}.</div>
-          <div class="description">{{event.description}}</div>
-          <div class="distance">{{event.distance}} miles</div>
+      <div class="eventlist" ng-show="ready">
+        <ion-item class="event" ng-repeat="event in data.events | orderBy:['+distance', '-created_at']">
           <div class="timeago"><span am-time-ago="event.created_at"></span></div>
-          <div class="upvoteDiv">
-            <span class="upvoteCount">{{event.upvoteCount}}</span>
-            <button class="upvote" ng-click="upvote({{event}})" ng-disabled="{{event.alreadyVoted}}">Upvote</button>
+          <div class="username">{{event.user.first_name}} {{event.user.last_name[0]}}. :</div>
+          <div class="description">{{event.description}}</div>
+          <div class="votes">
+            <div class="upvoteDiv">
+              <span class="upvoteCount">{{event.upvoteCount}}</span>
+              <button class="upvote" ng-click="upvote({{event}})" ng-disabled="{{event.alreadyVoted}}"><img class="thumbsup" src="../../img/thumbs_up.png"></button>
+            </div>
+            <div class="downvoteDiv">
+              <span class="downvoteCount">{{event.downvoteCount}}</span>
+              <button class="downvote" ng-click="downvote({{event}})" ng-disabled="{{event.alreadyVoted}}"><img class="thumbsup" src="../../img/thumbs_down.png"></button>
+            </div>
           </div>
-          <div class="downvoteDiv">
-            <span class="downvoteCount">{{event.downvoteCount}}</span>
-            <button class="downvote" ng-click="downvote({{event}})" ng-disabled="{{event.alreadyVoted}}">Downvote</button>
-          </div>
+          <div class="distance">{{event.distance}} miles</div>
         </ion-item>
       </div>
       <div ng-show="!ready">
