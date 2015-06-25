@@ -57,7 +57,7 @@ module.exports = {
       }
       event.save(function (err, eventSaved) {
         console.log('Event successfully created');
-        res.json(eventSaved);
+        res.sendStatus(201);
       });
     })
     .fail(function (err) {
