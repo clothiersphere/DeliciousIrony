@@ -17,7 +17,7 @@ module.exports = {
           res.sendStatus(200);
         } else {
           var createUser = Q.nbind(User.create, User);
-          return createUser(req.body).then(function () {
+          return createUser(req.body).then(function (user) {
             res.sendStatus(201);
           });
         }
