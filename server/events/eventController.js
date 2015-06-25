@@ -2,7 +2,7 @@ var Event = require('./eventModel');
 var Q = require('q');
 
 module.exports = {
-  extract: function(req, res, next) {
+  extract: function (req, res, next) {
     /*
     extract() is used when the Server receives a GET request at /api/events
     Finding all Event Documents that have a 'created_at' value
@@ -18,21 +18,19 @@ module.exports = {
     var lastTime = new Date();
     lastTime.setHours(lastTime.getHours() - 12);
     
-    Event.find({ "created_at": { $gt : lastTime}})
+    Event.find({ 'created_at': { $gt : lastTime}})
     .populate('user votes')
     .exec(function (err, events) {
       if (err) {
-        console.log("Error in Find Event");
+        console.log('Error in Find Event');
         console.log(err);
         return;
       }
-      console.log("printing out events");
-      console.log(events)
       res.json({ events: events });
     });
-  }, 
+  },
 
-  add: function(req, res, next) {
+  add: function (req, res, next) {
     /*
       add() is used when the Server receives a POST request at /api/events
 
@@ -44,26 +42,25 @@ module.exports = {
    
     var createEvent = Q.nbind(Event.create, Event);
     var newEvent = {
-          description: description, 
-          loc: { 
-            type: 'Point', 
-            coordinates: coordinates
-          }, 
-        user: userId 
+      description: description,
+      loc: {
+        type: 'Point',
+        coordinates: coordinates
+      },
+      user: userId
     };
 
-    createEvent(newEvent).then(function(event){
+    createEvent(newEvent).then(function (event) {
       var now = new Date();
-      if ( !event.created_at ) {
+      if (!event.created_at) {
         event.created_at = now;
       }
-      event.save(function(err, eventSaved) {
-        console.log("event successfully created");
-        console.log(eventSaved);
+      event.save(function (err, eventSaved) {
+        console.log('Event successfully created');
         res.sendStatus(201);
       });
     })
-    .fail(function(err) {
+    .fail(function (err) {
       console.log(err);
       next(err);
     });
