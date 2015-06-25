@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
         options: {
           file: 'index.js',
           env: {
-            PORT:'1337'
+            PORT: '1337'
           }
         },
         script: 'index.js'
@@ -104,12 +104,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
 
-  grunt.registerTask('server-dev', function (target) {
+  grunt.registerTask('server-dev', function () {
     // Running nodejs in a different process and displaying output on the main console
     var nodemon = grunt.util.spawn({
-         cmd: 'grunt',
-         grunt: true,
-         args: 'nodemon'
+      cmd: 'grunt',
+      grunt: true,
+      args: 'nodemon'
     });
     nodemon.stdout.pipe(process.stdout);
     nodemon.stderr.pipe(process.stderr);
@@ -129,8 +129,8 @@ module.exports = function(grunt) {
     'concat', 'uglify', 'cssmin'
   ]);
 
-  grunt.registerTask('upload', function(n) {
-    if(grunt.option('prod')) {
+  grunt.registerTask('upload', function () {
+    if (grunt.option('prod')) {
       grunt.task.run([ 'shell' ]);
     } else {
       grunt.task.run([ 'server-dev' ]);
