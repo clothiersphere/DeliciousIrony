@@ -5,8 +5,14 @@
       <ion-item ng-repeat="event in data.events">
         <div class="username">{{event.user.first_name}} {{event.user.last_name[0]}}.</div>
         <div class="description">{{event.description}}</div>
-        <button class="upvote" ng-click="upvote({{event}})">Upvote</button>
-        <button class="downvote" ng-click="downvote({{event}})">Downvote</button>
+        <div class="upvoteDiv">
+          <span class="upvoteCount">{{event.upvoteCount}}</span>
+          <button class="upvote" ng-click="upvote({{event}})" disabled="{{event.alreadyVoted}}">Upvote</button>
+        </div>
+        <div class="downvoteDiv">
+          <span class="downvoteCount">{{event.downvoteCount}}</span>
+          <button class="downvote" ng-click="downvote({{event}})" disabled="{{event.alreadyVoted}}">Downvote</button>
+        </div>
       </ion-item>
     </ion-list>
   </ion-content>
