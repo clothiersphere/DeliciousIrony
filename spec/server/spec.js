@@ -7,19 +7,52 @@ var db = require('mongoose');
 var Event = require('../../server/events/eventModel');
 var User = require('../../server/users/userModel');
 
+var req = request(app);
+
+User.remove({ '_id': { $in: [
+  '555',
+  '123'
+]}})
+  .exec();
+
+describe('/api/user', function () {
+    
+
+  it('POST New Users', function (done) {
+    req.post('/api/user')
+      .send({
+        '_id': '123',
+        'first_name': 'Ashwin',
+        'last_name': 'Da man',
+        'email': 'ash@win.com'
+      })
+      .expect(201);
+
+    req.post('/api/user')
+      .send({
+        '_id': '555',
+        'first_name': 'David',
+        'last_name': 'Fella',
+        'email': 'wowza@415.com'
+      })
+      .expect(201)
+      .end(done);
+  });
+});
+
+
 describe('/api/events', function () {
 
   it('Expect 201 when POST to /api/events', function (done) {
-    var req = request(app);
 
-    req.post('/api/events') 
-      .send({ 
+    req.post('/api/events')
+      .send({
         'description': 'Ashwins Famous Party',
         'coordinates': [127.5, 32.1],
         'userId': '555'
       })
       .expect(201)
-      .end(done)
+      .end(done);
   });
 
   it('Check the event that was POSTed', function (done) {
