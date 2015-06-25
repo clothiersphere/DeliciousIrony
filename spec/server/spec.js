@@ -15,7 +15,7 @@ User.remove({ '_id': { $in: [
 ]}})
   .exec();
 
-describe('/api/users', function () {
+describe('/api/user', function () {
     
 
   it('POST New Users', function (done) {
