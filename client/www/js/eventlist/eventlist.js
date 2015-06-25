@@ -1,6 +1,6 @@
 angular.module('starter.eventlist', [])
 
-.controller('EventListController', function ($scope, Events, Config) {
+.controller('EventListController', function ($scope, Events, Token) {
 
   $scope.data = {};
   $scope.vote = {};
@@ -19,7 +19,7 @@ angular.module('starter.eventlist', [])
           } else {
             event.downvoteCount++;
           }
-          if (vote.userId === Config.getUserId()) {
+          if (vote.userId === Token.get('userId')) {
             event.alreadyVoted = true;
           }
         })
@@ -29,8 +29,8 @@ angular.module('starter.eventlist', [])
 
   $scope.upvote = function(event) {
     console.log("Clicked event: " + JSON.stringify(event));
-    console.log("Config.userId " + Config.getUserId());
-    $scope.vote.userId = Config.getUserId();
+    console.log("Config.userId " + Token.get('userId'));
+    $scope.vote.userId = Token.get('userId');
     $scope.vote.eventId = event._id;
     $scope.vote.type = 1;
     Events.voteEvent($scope.vote)
@@ -43,7 +43,7 @@ angular.module('starter.eventlist', [])
   };
 
   $scope.downvote = function(event) {
-    $scope.vote.userId = Config.getUserId();
+    $scope.vote.userId = Token.get('userId');
     $scope.vote.eventId = event._id;
     $scope.vote.type = -1;
     Events.voteEvent($scope.vote)

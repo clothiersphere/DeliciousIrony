@@ -7,11 +7,11 @@
         <div class="description">{{event.description}}</div>
         <div class="upvoteDiv">
           <span class="upvoteCount">{{event.upvoteCount}}</span>
-          <button class="upvote" ng-click="upvote({{event}})" disabled="{{event.alreadyVoted}}">Upvote</button>
+          <button class="upvote" ng-click="upvote({{event}})" ng-disabled="{{event.alreadyVoted}}">Upvote</button>
         </div>
         <div class="downvoteDiv">
           <span class="downvoteCount">{{event.downvoteCount}}</span>
-          <button class="downvote" ng-click="downvote({{event}})" disabled="{{event.alreadyVoted}}">Downvote</button>
+          <button class="downvote" ng-click="downvote({{event}})" ng-disabled="{{event.alreadyVoted}}">Downvote</button>
         </div>
       </ion-item>
     </ion-list>
