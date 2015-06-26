@@ -2,15 +2,6 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    concat: {
-      options: {
-        separator: ';'
-      },
-      dist: {
-        src: ['public/client/**/*.js'],
-        dest: 'public/dist/<%= pkg.name %>.js'
-      }
-    },
 
     mochaTest: {
       test: {
@@ -33,19 +24,10 @@ module.exports = function (grunt) {
       }
     },
 
-    uglify: {
-      dist: {
-        files: {
-          'public/dist/app.min.js': ['<%= concat.dist.dest %>']
-        }
-      }
-    },
-
     jshint: {
       files: [
         'Gruntfile.js',
         'server/**/*.js',
-        'client/www/**/*.js',
         'spec/**/*.js',
         './*.js'
       ],
@@ -60,46 +42,23 @@ module.exports = function (grunt) {
       }
     },
 
-    cssmin: {
-      options: {
-        keepSpecialComments: 0
-      },
-      dist: {
-        files: {
-          'public/dist/style.min.css': 'public/style.css'
-        }
-      }
-    },
-
     watch: {
       scripts: {
         files: [
-          'public/client/**/*.js',
           'server/**/*.js',
-        ],
-        tasks: [
-          'concat',
-          'uglify'
         ]
-      },
-      css: {
-        files: 'public/*.css',
-        tasks: ['cssmin']
       }
     },
 
     shell: {
       prodServer: {
-        command: ''
+        command: 'git push heroku master'
       }
     },
   });
 
-  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
@@ -125,9 +84,6 @@ module.exports = function (grunt) {
     'jshint', 'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
-    'concat', 'uglify', 'cssmin'
-  ]);
 
   grunt.registerTask('upload', function () {
     if (grunt.option('prod')) {
@@ -138,7 +94,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('deploy', [
-    'test', 'build', 'upload'
+    'test', 'upload'
   ]);
 
 
