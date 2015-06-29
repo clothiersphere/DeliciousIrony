@@ -1,26 +1,61 @@
+html * { 
+	font-family: Futura,Trebuchet MS,Arial,sans-serif; 
+}
+
+.button.button-positive {
+    border-color: #FF00FF;
+    background-color: #D3F819;
+    color: blue; }
+
+h1 {
+	font-family: Futura,Trebuchet MS,Arial,sans-serif; 
+	text-align: center
+}
+
+.eventstyle {
+	text-align: center
+}
+
+.bar-header{
+	background-color: #9DE2B6;
+}
 /* Empty. Add your own CSS if you like */
 ion-content {
 	text-align: center;
-	background-color: #6699FF;
-	color: #FFFFFF;
+	background-color: #cccccc;
+	background-image: url("oldschoolphone.jpg");
+	/*background-color: #6699FF;*/
+	/*color: #FFFFFF;*/
 }
 
 .event {
 	text-align: left;
 }
 
+
 .createevent {
-	border-style: dashed;
-	border-width: 2px;
+	/*border-style: dashed;*/
+	border-color: #FF0066;
+	border-width: 1px;
 	font-style: italic;
 }
 
 .eventlist .event:nth-child(odd) {
-	background-color: #b8d1f3;
+	/*background-color: #b8d1f3;*/
+	background-color: #FFC7E1;
 }
 
 .eventlist .event:nth-child(even) {
-	background-color: #dae5f4;
+	/*background-color: #dae5f4;*/
+	background-color: #25ED57;
+}
+
+.description{
+	#DCC229
+}
+
+.createevent{
+	background-color: #D3F819;
 }
 
 .signout {
