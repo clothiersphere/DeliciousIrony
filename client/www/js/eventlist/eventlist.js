@@ -21,6 +21,7 @@ angular.module('starter.eventlist', ['angularMoment'])
     $scope.modal.hide();
   };
 
+//handles getting events and displaying them as well as restricting someone from voting multiple times. prom = array of promises
   $scope.getEvents = function () {
     Events.getEvents().then(function (events) {
       $scope.data.events = events.events;
@@ -49,6 +50,7 @@ angular.module('starter.eventlist', ['angularMoment'])
     });
   };
 
+//handles creating new events - Location, userId, and eventData [event text]
   $scope.newEvent = function () {
     LocationService.getlongLat().then(function (coordinates) {
       $scope.eventData.coordinates = coordinates;
@@ -64,6 +66,7 @@ angular.module('starter.eventlist', ['angularMoment'])
     });
   };
 
+//logic for upvoting
   $scope.upvote = function (event) {
     console.log('Clicked event: ' + JSON.stringify(event));
     console.log('Config.userId ' + Token.get('userId'));
@@ -78,7 +81,7 @@ angular.module('starter.eventlist', ['angularMoment'])
         console.log('Error in calling Events.voteEvent: ' + error);
       });
   };
-
+//logic for downvoting
   $scope.downvote = function (event) {
     $scope.vote.userId = Token.get('userId');
     $scope.vote.eventId = event._id;
@@ -96,6 +99,7 @@ angular.module('starter.eventlist', ['angularMoment'])
     Token.signout();
   };
 
+  //calculates distancebetween (lat1, lon1) and (lat2, lon2)  
   $scope._calcDistance = function (lat1, lon1, lat2, lon2) {
     var R = 6371000; // metres
     var φ1 = (lat1) * Math.PI / 180;
